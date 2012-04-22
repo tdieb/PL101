@@ -1,0 +1,23 @@
+start =
+    expression
+
+validchar =
+    [-0-9a-zA-Z_?!+=@#$%^&*/.]
+
+wschar =
+    [ \t\r\n]
+
+ws =
+    wschar* (";;" (!"\n" .)* "\n" wschar*)*
+
+atom =
+    chars:validchar+
+        { return chars.join(""); }
+
+delimatom =
+    a:atom ws { return a; }
+
+expression =
+    ws a:atom ws { return a; }
+  / ws "(" e:expression* ")" ws { return e; }
+  / "'" e:expression { return [ "quote", e ]; }
