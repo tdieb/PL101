@@ -15,5 +15,7 @@ fs.readFile('scheem.peg', 'ascii', function(err, data) {
         (if (= n 0) 1\n\
             ;; beware of negative values for n\n\
             (* n (factorial (- n 1))))))"),
-        ["define", "factorial", ["lambda", ["n"], ["if", ["=", "n", "0"], "1", ["*", "n", ["factorial", ["-", "n", "1"]]]]]] );
+        ["define", "factorial", ["lambda", ["n"], ["if", ["=", "n", 0], 1, ["*", "n", ["factorial", ["-", "n", 1]]]]]] );
+    assert.deepEqual( parse("5"), 5 );
+    assert.deepEqual( parse("-5"), -5 );
 });

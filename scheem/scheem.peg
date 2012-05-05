@@ -14,10 +14,15 @@ atom =
     chars:validchar+
         { return chars.join(""); }
 
+number =
+    sign:"-"? digits:[0-9]+
+        { return parseInt(sign.concat(digits.join("")));}
+
 delimatom =
     a:atom ws { return a; }
 
 expression =
-    ws a:atom ws { return a; }
+    ws n:number ws { return n; }
+  / ws a:atom ws { return a; }
   / ws "(" e:expression* ")" ws { return e; }
   / "'" e:expression { return [ "quote", e ]; }
